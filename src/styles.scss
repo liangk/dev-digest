@@ -82,8 +82,10 @@
   font-display: swap;
 }
 
+html, body { height: 100%; margin: 0; }
 /* Set Ubuntu as the default font */
 body {
   font-family: 'Ubuntu', sans-serif;
   font-weight: 400; /* Regular */
+  font-size: 16px;
 }
