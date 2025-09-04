@@ -1,0 +1,10 @@
+[
+  {
+      "title": "Fullstack Authentication Boilerplate",
+      "slug": "Fullstack-Authentication-Boilerplate",
+      "date": "2025-09-02",
+      "author": "Ko-Hsin Liang",
+      "repo": "https://github.com/liangk/fullstack-auth-boilerplate",
+      "description": "This document outlines a full-stack authentication boilerplate project available on GitHub, designed to provide a robust starting point for web application development. It details a modern tech stack, including Node.js, Express, Prisma (with PostgreSQL), and JWT for the backend, alongside Angular (with Material UI) for the frontend."
+  }
+]
