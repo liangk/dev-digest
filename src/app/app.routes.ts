@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LayoutComponent } from './layout/layout';
 import { BlogComponent } from './blog/blog.component';
+import { AboutComponent } from './about/about';
+import { ContactComponent } from './contact/contact';
 
 export const routes: Routes = [
   {
@@ -10,8 +12,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'blog/:slug', component: BlogComponent },
-      // Add more child routes here as needed
+      { path: 'about', component: AboutComponent },
+      { path: 'contact', component: ContactComponent },
     ]
   },
-  // Add more routes here if needed
 ];

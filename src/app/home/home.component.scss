@@ -1,14 +1,15 @@
-.home_content { width: 100%; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; 
-  color: #333; background: #fff; min-height: calc(100vh - 80px);
+:host { display: flex; flex-direction: column; flex: 1; }
+.home_content { width: 100%; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 2rem 1rem; 
+  color: #333; background: #fff; flex: 1;
   .title2 { font-family: 'Rokkitt', serif; font-size: 2.25rem; font-weight: 700; 
     margin: 2rem 0 1rem; text-align: center; color: #1a1a1a; line-height: 1.3; }
-  .post_list { display: flex; gap: 20px; flex-wrap: wrap;
+  .post_list { display: flex; flex-direction: column; gap: 20px;
     .post { display: flex; border: 1px solid #eaeaea; border-radius: 12px; overflow: hidden; 
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; 
       background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       &:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
       &:active { transform: translateY(-2px); }
-      .thumbnail { flex: 0 0 200px; width: 100%; height: 180px; overflow: hidden; 
+      .thumbnail { flex: 0 0 200px; width: 100%; height: 100%; overflow: hidden; 
         border-bottom: 1px solid #f0f0f0;
         img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
           &:hover { transform: scale(1.05); 

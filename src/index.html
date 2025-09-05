@@ -5,9 +5,18 @@
   <title>DevDigest</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
   <app-root></app-root>
+
+<!-- For the reactive form to work with Netlify, you also need to create a hidden HTML form
+Create this in your index.html or as a separate component: -->
+  <form name="contact-reactive" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <textarea name="message"></textarea>
+  </form>
+
 </body>
 </html>
