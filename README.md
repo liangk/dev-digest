@@ -1,34 +1,171 @@
 # DevDigest
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+[![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
 
-## Development server
+A modern web application built with Angular that serves as a technical blog and project showcase. The application features a clean, responsive design with a focus on performance and user experience.
 
-To start a local development server, run:
+## ✨ Features
+
+- 📝 Blog system with markdown support
+- 📱 Responsive design for all devices
+- 🎨 Modern UI with smooth animations
+- ⚡ Fast page loads with lazy loading
+- 🔍 SEO-friendly URLs and metadata
+- 📦 Component-based architecture
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16+)
+- npm (v8+) or Yarn (v1.22+)
+- Angular CLI (v15+)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/dev-digest.git
+   cd dev-digest
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+### Development Server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Build
 
-## Code scaffolding
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```bash
+ng build
+```
 
+For a production build:
+
+```bash
+ng build --configuration production
+```
+
+### Running Unit Tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+```bash
+ng test
+```
+
+### Running End-to-End Tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice.
+
+```bash
+ng e2e
+```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── app/
+│   ├── about/               # About page
+│   ├── blog/                # Blog post components
+│   ├── contact/             # Contact page
+│   ├── home/                # Home page components
+│   ├── layout/              # Main layout components
+│   ├── models/              # TypeScript interfaces
+│   ├── app.component.*      # Root component
+│   └── app.routes.ts        # Application routes
+├── assets/                  # Static assets
+│   └── fonts/               # Custom fonts
+└── styles/                  # Global styles
+```
+
+## 📚 Adding New Blog Posts
+
+1. Create a new markdown file in `public/blog/` with the following frontmatter:
+   ```yaml
+   ---
+   title: "Your Blog Post Title"
+   slug: your-blog-post-slug
+   date: YYYY-MM-DD
+   author: "Author Name"
+   description: "Brief description of the post"
+   repo: "https://github.com/yourusername/your-repo"  # Optional
+   ---
+   ```
+
+2. Add an entry to `public/blog/list.json`:
+   ```json
+   {
+     "title": "Your Blog Post Title",
+     "slug": "your-blog-post-slug",
+     "date": "YYYY-MM-DD",
+     "author": "Author Name",
+     "description": "Brief description of the post"
+   }
+   ```
+
+## 🛠️ Development
+
+### Code Scaffolding
+
+Generate a new component:
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+Generate a new service:
 ```bash
-ng generate --help
+ng generate service service-name
 ```
 
-## Building
+### Styling Guidelines
 
-To build the project run:
+- Use SCSS for styling
+- Follow BEM (Block Element Modifier) methodology
+- Keep styles scoped to components
+- Use CSS variables for theming
+- Mobile-first responsive design
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Angular](https://angular.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Sass](https://sass-lang.com/)
+- [Marked](https://marked.js.org/) - Markdown parser
+- [Google Fonts](https://fonts.google.com/)
+
+---
+
+<p align="center">
+  Made with ❤️ by [Your Name]
+</p>
 
 ```bash
 ng build

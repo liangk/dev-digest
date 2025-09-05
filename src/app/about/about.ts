@@ -3,19 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-about',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterModule],
-  templateUrl: './layout.html',
-  styleUrl: './layout.scss'
+  templateUrl: './about.html',
+  styleUrl: './about.scss'
 })
-export class LayoutComponent {
-  moreInfo = [{
-    title: "About",
-    link: "/about"
-  }, {
-    title: "Contact",
-    link: "/contact"
-  }]
+export class AboutComponent {
 
 }
