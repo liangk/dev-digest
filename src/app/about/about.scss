@@ -1,1 +1,7 @@
-:host { display: flex; flex-direction: column; min-height: 100vh; }
+:host { flex: 1; }
+.about_content { width: 100%; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; color: #2d3748; 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+  line-height: 1.7; 
+  h2 { font-family: 'Rokkitt', serif; font-size: 2.25rem; font-weight: 500; margin: 1rem 0 1rem; text-align: center; color: #1a1a1a; line-height: 1.3; }
+  p { font-size: 1.1rem; line-height: 1.7; margin: 1rem 0; }
+}

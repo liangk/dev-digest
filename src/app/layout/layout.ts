@@ -14,7 +14,7 @@ export class LayoutComponent {
     title: "About",
     link: "/about"
   }, {
-    title: "Contact",
+    title: "Contact Us",
     link: "/contact"
   }]
 
