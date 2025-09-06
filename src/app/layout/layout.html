@@ -1,6 +1,6 @@
 <header>
   <div class="header_wrapper">
-    <div class="logo" routerLink="/">Stack Insight</div>
+    <div class="logo" routerLink="/"><img src="stackinsight.dev-logo.png" alt=" Stack Insight"></div>
     <nav>
       <a routerLink="/">Home</a>
     </nav>
@@ -11,7 +11,7 @@
   <router-outlet></router-outlet>
   <footer>
     <div class="footer_content">
-      <div class="footer_logo"><img src="logo.png" alt=" Stack Insight"></div>
+      <div class="footer_logo"><img src="stackinsight.dev-logo.png" alt=" Stack Insight"></div>
       <nav>
         @for (item of moreInfo; track item.title) {
           <a routerLink="{{ item.link }}">{{ item.title }}</a>

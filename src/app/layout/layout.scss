@@ -1,9 +1,10 @@
 :host { display: flex; flex-direction: column; min-height: 100vh; }
 header { background-color: #f8f9fa; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  .header_wrapper { display: flex; justify-content: space-between; align-items: baseline; 
+  .header_wrapper { display: flex; justify-content: space-between; align-items: center; 
     padding: 20px; max-width: 1000px; margin: 0 auto; }
-  .logo { font-family: 'Rokkitt', serif; font-weight: 500; font-size: 2em; 
-    margin: 0; color: #2a49bf; cursor: pointer; }
+  .logo { margin: 0; cursor: pointer; 
+    img { width: 150px; height: auto; display: block; }
+  }
   nav {
     a { margin-right: 1rem; text-decoration: none; color: #333; cursor: pointer;
       &:hover { text-decoration: underline; }
@@ -16,7 +17,7 @@ footer { background-color: #f8f9fa; box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
   .footer_content { display: flex; justify-content: space-between; align-items: center; 
     padding: 20px; max-width: 1000px; margin: 0 auto; }
   .footer_logo {
-    img { width: 120px; height: auto; }
+    img { width: 150px; height: auto; display: block; }
   }
   nav {
     display: flex; gap: 1rem;
