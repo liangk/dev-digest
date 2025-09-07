@@ -141,5 +141,11 @@
       <div data-netlify-recaptcha="true"></div>
       <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid || isSubmitting">{{ isSubmitting ? 'Sending...' : 'Send Message' }}</button>
     </form>
+    <!-- Success message -->
+    <div *ngIf="showSuccess" class="success-message">
+      <h3>Thank you!</h3>
+      <p>Your message has been sent successfully. We'll get back to you soon.</p>
+      <button (click)="resetForm()" class="btn btn-secondary">Send Another Message</button>
+    </div>
   </div>
 </div>

@@ -7,12 +7,16 @@ label { display: block;margin-bottom: 0.5rem;}
 .form-control { width: 100%;padding: 0.75rem;border: 1px solid #ccc; border-radius: 4px;font-size: 1rem; }
 .form-control:focus { outline: none;border-color: #007bff;box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); }
 .form-control.error { border-color: #dc3545;}
-.error-message { color: #dc3545;font-size: 0.875rem;margin-top: 0.25rem;}
-.btn { padding: 0.75rem 1.5rem;border: none;border-radius: 4px;cursor: pointer;font-size: 1rem;transition: background-color 0.3s;}
-.btn-primary { background-color: #007bff;color: white;}
+.error-message { color: #dc3545;font-size: 0.875rem;margin-top: 0.25rem; }
+.btn { padding: 0.75rem 1.5rem;border: none;border-radius: 4px;cursor: pointer;font-size: 1rem;transition: background-color 0.3s; }
+.btn-primary { background-color: #007bff; color: white;}
 .btn-primary:hover:not(:disabled) { background-color: #0056b3;}
 .btn-primary:disabled { background-color: #6c757d;cursor: not-allowed;}
-.btn-secondary { background-color: #6c757d;color: white;}
+.btn-secondary { background-color: #09f; color: white;}
 .btn-secondary:hover { background-color: #5a6268;}
-.success-message { text-align: center;padding: 2rem;background-color: #d4edda;border: 1px solid #c3e6cb;border-radius: 4px;color: #155724;}
-.success-message h3 { margin-bottom: 1rem;color: #155724;}
+.success-message { text-align: center; padding: 2rem;
+  background-color: #009aff08;
+  border: 1px solid #009aff1c;
+  border-radius: 4px;
+  color: #09f;}
+.success-message h3 { margin-bottom: 1rem; color: #09f;}

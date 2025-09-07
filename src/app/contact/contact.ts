@@ -69,7 +69,8 @@ export class ContactComponent {
       this.http.post('/', formData, {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded'
-        })
+        }),
+        responseType: 'text'
       }).subscribe({
         next: () => {
           this.isSubmitting = false;
