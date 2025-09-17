@@ -12,12 +12,14 @@
   <footer>
     <div class="footer_content">
       <div class="footer_logo"><img src="stackinsight.dev-logo.png" alt=" Stack Insight"></div>
-      <nav>
-        @for (item of moreInfo; track item.title) {
-          <a routerLink="{{ item.link }}">{{ item.title }}</a>
-        }
-      </nav>
-      <div class="footer_copyright">© 2025 StackInsight.dev. All rights reserved.</div>
+      <div class="group">
+        <nav>
+          @for (item of moreInfo; track item.title) {
+            <a routerLink="{{ item.link }}">{{ item.title }}</a>
+          }
+        </nav>
+        <div class="footer_copyright"><span>© 2025 StackInsight.dev.</span> <span>All rights reserved.</span></div>
+      </div>
     </div>
   </footer>
 </main>

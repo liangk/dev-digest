@@ -11,10 +11,8 @@
         <span class="post-date">{{ post.date }}</span>
         <span class="post-author">by {{ post.author }}</span>
       </div>
-      @if (post.image) {
-        <div class="post-image">
-          <img [src]="'/images/' + post.slug + '.png'" [alt]="post.title">
-        </div>
+      @if (post.thumbnail) {
+        <div class="post-image" [ngStyle]="{'background-image': 'url(/images/' + post.thumbnail + ')'}"></div>
       }
     </header>
     <article class="blog-post">

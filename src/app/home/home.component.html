@@ -3,7 +3,7 @@
   <div class="post_list">
     @for (post of posts; track post.slug) {
       <div class="post" routerLink="/blog/{{ post.slug }}">
-        <div class="thumbnail"><img src="/images/{{ post.slug }}.png" alt="{{ post.title }}"></div>
+        <div class="thumbnail"><img src="/images/{{ post.thumbnail }}" alt="{{ post.title }}"></div>
         <div class="content">
           <div class="post_title">{{ post.title }}</div>
           <div class="post_description">{{ post.description }}</div>

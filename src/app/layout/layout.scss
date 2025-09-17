@@ -15,15 +15,22 @@ header { background-color: #f8f9fa; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 .main-content { display: flex; flex-direction: column; flex: 1; }
 footer { background-color: #f8f9fa; box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
   .footer_content { display: flex; justify-content: space-between; align-items: center; 
-    padding: 20px; max-width: 1000px; margin: 0 auto; }
-  .footer_logo {
-    img { width: 150px; height: auto; display: block; }
-  }
-  nav {
-    display: flex; gap: 1rem;
-    a { text-decoration: none; color: #6c757d; cursor: pointer; font-size: 0.8em;
-      &:hover { text-decoration: underline; }
+    padding: 20px; max-width: 1000px; margin: 0 auto;
+    .footer_logo {
+      img { width: 150px; height: auto; display: block; }
+    }
+    .group {
+      display: flex; gap: 2rem;
+      @media (max-width: 786px) { flex-direction: column; gap: 0.4rem; }
+      nav {
+        display: flex; gap: 2rem;
+        a { text-decoration: none; color: #6c757d; cursor: pointer; font-size: 0.8em;
+          &:hover { text-decoration: underline; }
+        }
+      }
+      .footer_copyright { font-size: 0.8em; color: #6c757d;
+        @media (max-width: 786px) {display: flex; flex-direction: column; gap: 0; }
+      }
     }
   }
-  .footer_copyright { font-size: 0.8em; color: #6c757d; }
 }
