@@ -16,6 +16,9 @@ export class LayoutComponent {
   }, {
     title: "Contact Us",
     link: "/contact"
+  }, {
+    title: "Privacy Policy",
+    link: "/privacy-policy"
   }]
 
 }

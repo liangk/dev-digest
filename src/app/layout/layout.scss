@@ -20,15 +20,14 @@ footer { background-color: #f8f9fa; box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
       img { width: 150px; height: auto; display: block; }
     }
     .group {
-      display: flex; gap: 2rem;
-      @media (max-width: 786px) { flex-direction: column; gap: 0.4rem; }
+      display: flex; gap: 1rem; flex-direction: column;
       nav {
         display: flex; gap: 2rem;
         a { text-decoration: none; color: #6c757d; cursor: pointer; font-size: 0.8em;
           &:hover { text-decoration: underline; }
         }
       }
-      .footer_copyright { font-size: 0.8em; color: #6c757d;
+      .footer_copyright { font-size: 0.8em; color: #6c757d; display: flex; gap: 1em;
         @media (max-width: 786px) {display: flex; flex-direction: column; gap: 0; }
       }
     }

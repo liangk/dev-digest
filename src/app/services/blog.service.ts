@@ -70,4 +70,7 @@ export class BlogService {
         })
       );
   }
+  getPrivacyPolicy(): Observable<string> {
+    return this.http.get('/privacy-policy.md', { responseType: 'text' });
+  }
 }
