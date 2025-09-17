@@ -1,4 +1,11 @@
-# How I Built a Free Crypto Tracker in 2025 (Complete Guide)
+---
+title: "How to Build a Free Crypto Tracker Dashboard with React in 2025"
+description: "Step-by-step guide to building your own free cryptocurrency tracker dashboard using React. Learn how to track crypto prices, build a portfolio, and analyze market trends with this comprehensive tutorial."
+keywords: "free crypto tracker, build cryptocurrency dashboard, react crypto portfolio, crypto price tracker, cryptocurrency portfolio tracker, react crypto dashboard, build crypto app, free crypto portfolio"
+date: "2025-09-17"
+---
+
+# How to Build a Free Crypto Tracker Dashboard with React (2025 Guide)
 
 *Last updated: September 2025 | 8 min read*
 
@@ -8,9 +15,9 @@ That's when I decided: **Why not build my own crypto tracker that does exactly w
 
 Three weeks later, I had a fully functional, real-time cryptocurrency dashboard that tracks prices, displays charts, and provides the market insights I actually care about. The best part? I'm hosting it completely free and it handles hundreds of visitors daily.
 
-**[🚀 Live Demo: stackinsight.dev](https://stackinsight.dev)** | **[📖 Source Code: GitHub](https://github.com/liangk/crypto-tracker)**
+**[🚀 Live Demo: Crypto Tracker App](https://crypto-tracker-ruddy-delta.vercel.app/)** | **[📖 Source Code: GitHub](https://github.com/liangk/crypto-tracker)**
 
-## Why I Built My Own Crypto Tracker
+## Why Build Your Own Free Crypto Tracker?
 
 Let me be honest – there are plenty of crypto tracking apps out there. But here's what frustrated me about most of them:
 
@@ -31,7 +38,7 @@ After analyzing my actual usage patterns, I identified what I really needed:
 ✅ **Historical price data and charts**  
 ✅ **No data collection** – privacy by design  
 
-## The Tech Stack: Simple but Powerful
+## The Tech Stack: Building a Powerful Yet Simple Crypto Dashboard
 
 I chose technologies that prioritize performance and simplicity:
 
@@ -52,9 +59,9 @@ I chose technologies that prioritize performance and simplicity:
 - **Production:** Static hosting (more on this in my next article!)
 - **Domain:** Custom domain for professional look
 
-## Building the Core Features
+## Building Your Crypto Tracker: Core Features
 
-### 1. Real-Time Price Dashboard
+### 1. Building the Real-Time Price Tracker
 
 The heart of any crypto tracker is live price data. Here's how I implemented it:
 
@@ -78,7 +85,7 @@ const fetchCryptoPrices = async () => {
 - **Error Handling:** Graceful fallbacks when API calls fail
 - **Caching:** Browser storage for offline functionality
 
-### 2. Price Charts and Data Visualization
+### 2. Creating Interactive Crypto Charts
 
 What really sets my tracker apart is the clean, focused presentation of data:
 
@@ -96,7 +103,7 @@ Instead of trying to build everything, I focused on doing a few things really we
 - Responsive design that works on any device
 - Fast loading with optimized API calls
 
-### 3. Performance Optimizations
+### 3. Optimizing Your Crypto Tracker's Performance
 
 Since I'm using free hosting, every optimization matters:
 
@@ -175,7 +182,7 @@ I tested several free hosting options:
 
 ## Try It Yourself
 
-**[🔗 Live Demo: stackinsight.dev](https://stackinsight.dev)**
+**[🔗 Live Demo: Crypto Tracker App](https://crypto-tracker-ruddy-delta.vercel.app/)**
 **[📁 Complete Source Code: GitHub](https://github.com/liangk/crypto-tracker)**
 
 The entire codebase is open source. You can:

@@ -1,0 +1,19 @@
+<div class="policy_content">
+  @if (isLoading) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Loading policy...</p>
+    </div>
+  } @else if (privacyPolicy) {
+    <div class="policy">
+      <div class="policy_content markdown-body">
+        <markdown [data]="privacyPolicy"></markdown>
+      </div>
+    </div>
+  } @else {
+    <div class="not-found">
+      <h2>Policy Not Found</h2>
+      <p>The requested policy could not be found.</p>
+      <a routerLink="/" class="back-link">← Back to home</a>
+    </div>
+  }
