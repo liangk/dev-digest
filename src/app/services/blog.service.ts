@@ -11,16 +11,16 @@ export class BlogService {
 
   getPostMetadata(): Observable<BlogPost[]> {
     // Try to get posts from localStorage first
-    const cachedPosts = localStorage.getItem('blogPosts');
-    if (cachedPosts) {
-      try {
-        const parsedPosts = JSON.parse(cachedPosts) as BlogPost[];
-        return of(parsedPosts);
-      } catch (e) {
-        console.error('Error parsing cached posts:', e);
-        localStorage.removeItem('blogPosts'); // Remove invalid cache
-      }
-    }
+    // const cachedPosts = localStorage.getItem('blogPosts');
+    // if (cachedPosts) {
+    //   try {
+    //     const parsedPosts = JSON.parse(cachedPosts) as BlogPost[];
+    //     return of(parsedPosts);
+    //   } catch (e) {
+    //     console.error('Error parsing cached posts:', e);
+    //     localStorage.removeItem('blogPosts'); // Remove invalid cache
+    //   }
+    // }
 
     // If not in cache or invalid, fetch from server
     return this.http.get('/blog/list.json').pipe(
@@ -62,6 +62,7 @@ export class BlogService {
           return of({
             title: 'Post Not Found',
             slug: 'Post-Not-Found',
+            thumbnail: 'Post-Not-Found.png',
             date: new Date().toISOString(),
             author: 'System',
             body: 'The requested post could not be found.'

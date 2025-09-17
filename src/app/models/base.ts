@@ -2,6 +2,7 @@ export interface BlogPost {
   // Core content
   title: string;
   slug: string;
+  thumbnail: string;
   date: string;
   publishedDate?: string; // ISO date string
   author: string;

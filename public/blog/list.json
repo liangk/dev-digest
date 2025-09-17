@@ -2,9 +2,19 @@
   {
       "title": "Fullstack Authentication Boilerplate",
       "slug": "Fullstack-Authentication-Boilerplate",
+      "thumbnail": "Fullstack-Authentication-Boilerplate.png",
       "date": "2025-09-02",
       "author": "Ko-Hsin Liang",
       "repo": "https://github.com/liangk/fullstack-auth-boilerplate",
       "description": "This document outlines a full-stack authentication boilerplate project available on GitHub, designed to provide a robust starting point for web application development. It details a modern tech stack, including Node.js, Express, Prisma (with PostgreSQL), and JWT for the backend, alongside Angular (with Material UI) for the frontend."
+  },
+  {
+      "title": "How I Built a Free Crypto Tracker in 2025 (Complete Guide)",
+      "slug": "crypto-tracker-article-s1",
+      "thumbnail": "crypto-tracker-article-s1.jpg",
+      "date": "2025-09-16",
+      "author": "Ko-Hsin Liang",
+      "repo": "https://github.com/liangk/crypto-tracker",
+      "description": "A comprehensive guide on building a real-time cryptocurrency dashboard that tracks prices, displays charts, and provides market insights. The solution is built with modern web technologies and hosted completely free, handling hundreds of daily visitors."
   }
 ]
