@@ -3,6 +3,6 @@
   publish = "dist/dev-digest/browser"
 
 [build.environment]
-  NODE_VERSION = "18.0.0"
+  NODE_VERSION = "22.17.1"
   NETLIFY = "true"
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
