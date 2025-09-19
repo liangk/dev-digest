@@ -6,15 +6,15 @@ const path = require('path');
 (async () => {
   console.log('🚀 Starting prerender...');
 
-  const isProduction = process.env.NODE_ENV === 'production';
-  const baseUrl = isProduction 
-    ? 'http://localhost:4200' // Netlify will use the built files
-    : 'http://localhost:4200';
+  const isProduction = process.env.NETLIFY === 'true';
+  const baseUrl = 'http://localhost:4200';
     
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined
+    executablePath: isProduction 
+      ? process.env.PUPPETEER_EXECUTABLE_PATH || '/opt/buildhome/.cache/puppeteer/chrome/linux-140.0.7339.82/chrome-linux64/chrome'
+      : undefined
   });
 
   // Get routes from list.json
