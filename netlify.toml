@@ -1,6 +1,0 @@
-[build]
-  command = "npm run netlify-build"
-  publish = "dist/dev-digest/browser"
-
-[build.environment]
-  NODE_VERSION = "18.0.0"
