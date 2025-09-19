@@ -22,20 +22,11 @@ const { exec } = require('child_process');
     // Give Angular time to start
     await new Promise(resolve => setTimeout(resolve, 15000));
 
-    // Chrome configuration for different environments
-    const chromeOptions = {
+    // Simplified Netlify configuration
+    const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
-    };
-
-    // Only set executablePath if running on Netlify
-    if (process.env.NETLIFY === 'true') {
-      chromeOptions.executablePath = 
-        process.env.PUPPETEER_EXECUTABLE_PATH || 
-        '/opt/buildhome/.cache/puppeteer/chrome/linux-140.0.7339.82/chrome-linux64/chrome';
-    }
-
-    const browser = await puppeteer.launch(chromeOptions);
+    });
 
     const blogList = JSON.parse(fs.readFileSync(path.join(__dirname, 'public', 'blog', 'list.json')));
     const routes = ['/'].concat(blogList.map(post => `/blog/${post.slug}`));
