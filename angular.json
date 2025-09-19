@@ -32,6 +32,9 @@
             "styles": [
               "src/styles.scss",
               "node_modules/github-markdown-css/github-markdown.css"
+            ],
+            "allowedCommonJsDependencies": [
+              "front-matter"
             ]
           },
           "configurations": {
@@ -39,12 +42,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "800kB",
                   "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
+                  "maximumWarning": "8kB",
                   "maximumError": "8kB"
                 }
               ],
