@@ -6,24 +6,26 @@ const path = require('path');
 (async () => {
   console.log('🚀 Starting prerender...');
 
+  const isProduction = process.env.NODE_ENV === 'production';
+  const baseUrl = isProduction 
+    ? 'http://localhost:4200' // Netlify will use the built files
+    : 'http://localhost:4200';
+    
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined
   });
 
-  // List of routes to prerender
-  const routes = [
-    '/blog/Fullstack-Authentication-Boilerplate',
-    '/blog/crypto-tracker-article-s1',
-    // Add more blog routes as needed
-  ];
+  // Get routes from list.json
+  const blogList = JSON.parse(fs.readFileSync(path.join(__dirname, 'public', 'blog', 'list.json')));
+  const routes = blogList.map(post => `/blog/${post.slug}`);
 
-  const baseUrl = 'http://localhost:4200'; // Matches ng serve
   const distPath = path.join(__dirname, 'dist', 'dev-digest', 'browser');
 
   // Ensure dist/browser exists
   if (!fs.existsSync(distPath)) {
-    console.error('❌ Build first! dist/browser not found.');
+    console.error('❌ Build first! dist/dev-digest/browser not found.');
     process.exit(1);
   }
 
@@ -34,7 +36,7 @@ const path = require('path');
   });
   server.listen(4200);
 
-  await new Promise(resolve => setTimeout(resolve, 3000)); // Wait longer for server
+  await new Promise(resolve => setTimeout(resolve, 3000));
 
   for (const route of routes) {
     const page = await browser.newPage();
@@ -45,28 +47,28 @@ const path = require('path');
 
       await page.goto(url, {
         waitUntil: 'networkidle0',
-        timeout: 60000 // Increased timeout
+        timeout: 60000
       });
 
-      // Wait for blog content with more robust checks
       try {
         await page.waitForSelector('#rendered-markdown', { 
           timeout: 30000,
           visible: true
         });
-        // Additional check that content is actually loaded
-        await page.waitForFunction(
-          'document.querySelector("#rendered-markdown").innerText.length > 0',
-          { timeout: 30000 }
-        );
+        
+        // Additional checks for production
+        if (isProduction) {
+          await page.waitForFunction(
+            'document.querySelector("#rendered-markdown").innerText.length > 0',
+            { timeout: 30000 }
+          );
+        }
       } catch (err) {
-        console.error(`⚠️ Could not find content for ${url}. Maybe the post doesn't exist?`);
-        continue; // Skip to next route
+        console.error(`⚠️ Could not find content for ${url}. Details:`, err.message);
+        continue;
       }
 
       const html = await page.content();
-
-      // Create output path
       const outputPath = path.join(distPath, route.slice(1));
       fs.mkdirSync(outputPath, { recursive: true });
       fs.writeFileSync(path.join(outputPath, 'index.html'), html);
