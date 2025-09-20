@@ -1,8 +1,0 @@
-[build]
-  command = "npm run build:prerender"
-  publish = "dist/dev-digest/browser"
-
-[build.environment]
-  PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "false"
-  # Optionally pin Node version if needed
-  NODE_VERSION = "20"
