@@ -1,4 +1,4 @@
 [[headers]]
   for = "/blog/*"
   [headers.values]
-    X-Prerender = 1
+    X-Prerender = "1"
