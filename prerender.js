@@ -3,27 +3,82 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
+const http = require('http');
+const url = require('url');
 
 (async () => {
   console.log('🚀 Starting prerender...');
   const ANGULAR_PORT = 7202;
-  let staticServer;
+  let server;
   try {
-    // Serve the built app statically from dist instead of running ng serve
+    // Serve the built app statically from dist using a tiny built-in server
     const distPath = path.join(__dirname, 'dist', 'dev-digest', 'browser');
-    staticServer = exec(`npx serve -l ${ANGULAR_PORT} "${distPath}" --single`, {
-      cwd: __dirname,
-      env: { ...process.env, NODE_ENV: 'production' }
-    });
-    staticServer.stdout?.on('data', data => console.log(`[Static] ${data}`));
-    staticServer.stderr?.on('data', data => console.error(`[Static Error] ${data}`));
 
-    // Give the static server a moment to start
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    const contentType = (filePath) => {
+      const ext = path.extname(filePath).toLowerCase();
+      switch (ext) {
+        case '.html': return 'text/html';
+        case '.js': return 'application/javascript';
+        case '.css': return 'text/css';
+        case '.json': return 'application/json';
+        case '.png': return 'image/png';
+        case '.jpg':
+        case '.jpeg': return 'image/jpeg';
+        case '.svg': return 'image/svg+xml';
+        case '.ico': return 'image/x-icon';
+        case '.webp': return 'image/webp';
+        default: return 'application/octet-stream';
+      }
+    };
+
+    server = http.createServer((req, res) => {
+      const parsedUrl = url.parse(req.url);
+      let pathname = decodeURIComponent(parsedUrl.pathname || '/');
+
+      // Prevent directory traversal
+      pathname = pathname.replace(/\\/g, '/');
+      if (pathname.includes('..')) pathname = '/';
+
+      let filePath = path.join(distPath, pathname);
+
+      fs.stat(filePath, (err, stats) => {
+        if (!err && stats.isDirectory()) {
+          filePath = path.join(filePath, 'index.html');
+        }
+
+        fs.readFile(filePath, (readErr, data) => {
+          if (readErr) {
+            // SPA fallback to index.html
+            const fallback = path.join(distPath, 'index.html');
+            fs.readFile(fallback, (fallbackErr, fallbackData) => {
+              if (fallbackErr) {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('Not found');
+                return;
+              }
+              res.writeHead(200, { 'Content-Type': 'text/html' });
+              res.end(fallbackData);
+            });
+            return;
+          }
+          res.writeHead(200, { 'Content-Type': contentType(filePath) });
+          res.end(data);
+        });
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      server.on('error', reject);
+      server.listen(ANGULAR_PORT, () => {
+        console.log(`📦 Static server running at http://localhost:${ANGULAR_PORT}`);
+        resolve();
+      });
+    });
 
     // Simplified Netlify configuration
     const browser = await puppeteer.launch({
       headless: true,
+      executablePath: puppeteer.executablePath(),
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
@@ -57,8 +112,8 @@ const { exec } = require('child_process');
     console.error('❌ Prerender failed:', err);
     process.exit(1);
   } finally {
-    if (staticServer) {
-      staticServer.kill('SIGINT');
+    if (server) {
+      await new Promise((resolve) => server.close(() => resolve()));
       console.log('🛑 Static server stopped');
     }
     console.log('🎉 Prerendering complete!');
