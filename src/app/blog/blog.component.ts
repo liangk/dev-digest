@@ -21,7 +21,10 @@ export class BlogComponent implements OnInit, OnDestroy {
   post: any = null;
   isLoading = true;
   error: string | null = null;
-  
+  // This will hold clean text version of your Markdown
+seoContent = '';
+
+
   constructor(
     private blogService: BlogService, 
     private route: ActivatedRoute,
@@ -65,39 +68,66 @@ export class BlogComponent implements OnInit, OnDestroy {
   }
 
   private updateMetaTags(post: BlogPost) {
-    const url = `${environment.baseUrl}${this.router.url}`;
-    const description = post.excerpt || 'Read this article on Stack Insight';
-    const image = post.image ? 
-      (post.image.startsWith('http') ? post.image : `${environment.baseUrl}${post.image}`) : 
+    const url = post.canonicalUrl || `${environment.baseUrl}${this.router.url}`;
+    const description = post.metaDescription || post.description || 'Read this article on Dev Digest';
+    const ogTitle = post.ogTitle || post.title;
+    const ogDescription = post.ogDescription || description;
+    const image = post.ogImage || post.image || post.thumbnail ? 
+      `${environment.baseUrl}/images/${post.thumbnail}` : 
       `${environment.baseUrl}${environment.defaultImage}`;
     
-    // Update meta tags
+    // Basic meta tags
+    this.titleService.setTitle(`${post.title} | Dev Digest`);
     this.meta.updateTag({ name: 'description', content: description });
+    if (post.keywords && post.keywords.length > 0) {
+      this.meta.updateTag({ name: 'keywords', content: post.keywords.join(', ') });
+    }
     
     // Open Graph
-    this.meta.updateTag({ property: 'og:title', content: `${post.title} | Stack Insight` });
-    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:title', content: ogTitle });
+    this.meta.updateTag({ property: 'og:description', content: ogDescription });
     this.meta.updateTag({ property: 'og:image', content: image });
     this.meta.updateTag({ property: 'og:url', content: url });
-    this.meta.updateTag({ property: 'og:type', content: 'article' });
+    this.meta.updateTag({ property: 'og:type', content: post.ogType || 'article' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'Dev Digest' });
     
     // Twitter Card
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
-    this.meta.updateTag({ name: 'twitter:title', content: `${post.title} | Stack Insight` });
-    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:card', content: post.twitterCard || 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:title', content: ogTitle });
+    this.meta.updateTag({ name: 'twitter:description', content: ogDescription });
     this.meta.updateTag({ name: 'twitter:image', content: image });
+    if (post.twitterCreator) {
+      this.meta.updateTag({ name: 'twitter:creator', content: post.twitterCreator });
+    }
     
     // Canonical URL
     this.meta.updateTag({ rel: 'canonical', href: url });
     
     // Article specific meta
     if (post.publishedDate) {
-      this.meta.updateTag({ name: 'article:published_time', content: new Date(post.publishedDate).toISOString() });
+      this.meta.updateTag({ property: 'article:published_time', content: post.publishedDate });
     }
-    if (post.tags) {
+    if (post.updatedAt) {
+      this.meta.updateTag({ property: 'article:modified_time', content: post.updatedAt });
+    }
+    if (post.section) {
+      this.meta.updateTag({ property: 'article:section', content: post.section });
+    }
+    if (post.tags && post.tags.length > 0) {
+      // Remove existing article:tag meta tags first
+      this.meta.removeTag('property="article:tag"');
       post.tags.forEach(tag => {
-        this.meta.addTag({ name: 'article:tag', content: tag });
+        this.meta.addTag({ property: 'article:tag', content: tag });
       });
+    }
+    
+    // Author information
+    this.meta.updateTag({ property: 'article:author', content: post.author });
+    
+    // Reading time (for rich snippets)
+    if (post.readTime) {
+      this.meta.updateTag({ name: 'twitter:label1', content: 'Reading time' });
+      this.meta.updateTag({ name: 'twitter:data1', content: `${post.readTime} min read` });
     }
   }
   
@@ -128,6 +158,10 @@ export class BlogComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.updateMetaTags(post);
         console.log('Loaded post with metadata:', this.post);
+        this.seoContent = this.post.body
+        .replace(/[#\[\]()`_*\-!>]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
       },
       error: (error) => {
         console.error('Error loading post:', error);
