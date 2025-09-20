@@ -1,8 +1,8 @@
 [
   {
     "title": "Fullstack Authentication Boilerplate",
-    "slug": "Fullstack-Authentication-Boilerplate",
-    "thumbnail": "Fullstack-Authentication-Boilerplate.png",
+    "slug": "fullstack-authentication-boilerplate",
+    "thumbnail": "fullstack-authentication-boilerplate.png",
     "date": "2025-09-02",
     "author": "Ko-Hsin Liang",
     "repo": "https://github.com/liangk/fullstack-auth-boilerplate",
@@ -11,7 +11,7 @@
     "keywords": ["fullstack authentication", "angular express jwt", "http-only cookies", "refresh token rotation", "postgresql prisma", "secure authentication", "typescript boilerplate", "angular material"],
     "ogTitle": "Modern Fullstack Authentication Boilerplate: Angular + Express + PostgreSQL",
     "ogDescription": "Secure, production-ready authentication starter kit with JWT in HTTP-only cookies, refresh token rotation, and end-to-end TypeScript. No third-party auth services needed.",
-    "ogImage": "/images/Fullstack-Authentication-Boilerplate.png",
+    "ogImage": "/images/fullstack-authentication-boilerplate.png",
     "ogType": "article",
     "twitterCard": "summary_large_image",
     "twitterCreator": "@kohsinliang",
@@ -20,7 +20,7 @@
     "tags": ["Authentication", "Angular", "Express", "PostgreSQL", "JWT", "TypeScript", "Security"],
     "readTime": 12,
     "wordCount": 2500,
-    "canonicalUrl": "https://stackinsight.dev/blog/Fullstack-Authentication-Boilerplate"
+    "canonicalUrl": "https://stackinsight.dev/blog/fullstack-authentication-boilerplate"
   },
   {
     "title": "How I Built a Free Crypto Tracker in 2025 (Complete Guide)",
