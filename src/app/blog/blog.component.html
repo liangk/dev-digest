@@ -32,14 +32,6 @@
       <div class="post-content markdown-body" id="rendered-markdown">
         <markdown [data]="post.body"></markdown>
       </div>
-
-      <!-- Hidden SEO Layer - invisible to users, visible to bots -->
-      <div style="display: none; height: 1px; overflow: hidden;" aria-hidden="true">
-        <h1>{{ post.title }}</h1>
-        <p>Author: {{ post.author }} | Published: {{ post.date | date }}</p>
-        <pre>{{ seoContent }}</pre>
-      </div>
-
       <footer class="post-footer">
         <a routerLink="/" class="back-link">← Back to all posts</a>
       </footer>

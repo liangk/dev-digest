@@ -6,21 +6,20 @@ const { exec } = require('child_process');
 
 (async () => {
   console.log('🚀 Starting prerender...');
-
-  const ANGULAR_PORT = 7202; 
-  let ngServe;
+  const ANGULAR_PORT = 7202;
+  let staticServer;
   try {
-    // Start Angular dev server with different port
-    ngServe = exec(`npm run start -- --port ${ANGULAR_PORT}`, {
+    // Serve the built app statically from dist instead of running ng serve
+    const distPath = path.join(__dirname, 'dist', 'dev-digest', 'browser');
+    staticServer = exec(`npx serve -l ${ANGULAR_PORT} "${distPath}" --single`, {
       cwd: __dirname,
       env: { ...process.env, NODE_ENV: 'production' }
     });
-    
-    ngServe.stdout.on('data', data => console.log(`[Angular] ${data}`));
-    ngServe.stderr.on('data', data => console.error(`[Angular Error] ${data}`));
+    staticServer.stdout?.on('data', data => console.log(`[Static] ${data}`));
+    staticServer.stderr?.on('data', data => console.error(`[Static Error] ${data}`));
 
-    // Give Angular time to start
-    await new Promise(resolve => setTimeout(resolve, 15000));
+    // Give the static server a moment to start
+    await new Promise(resolve => setTimeout(resolve, 5000));
 
     // Simplified Netlify configuration
     const browser = await puppeteer.launch({
@@ -30,7 +29,6 @@ const { exec } = require('child_process');
 
     const blogList = JSON.parse(fs.readFileSync(path.join(__dirname, 'public', 'blog', 'list.json')));
     const routes = ['/'].concat(blogList.map(post => `/blog/${post.slug}`));
-    const distPath = path.join(__dirname, 'dist', 'dev-digest', 'browser');
 
     for (const route of routes) {
       const page = await browser.newPage();
@@ -59,9 +57,9 @@ const { exec } = require('child_process');
     console.error('❌ Prerender failed:', err);
     process.exit(1);
   } finally {
-    if (ngServe) {
-      ngServe.kill('SIGINT');
-      console.log('🛑 Angular server stopped');
+    if (staticServer) {
+      staticServer.kill('SIGINT');
+      console.log('🛑 Static server stopped');
     }
     console.log('🎉 Prerendering complete!');
     process.exit(0);

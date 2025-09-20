@@ -21,9 +21,6 @@ export class BlogComponent implements OnInit, OnDestroy {
   post: any = null;
   isLoading = true;
   error: string | null = null;
-  // This will hold clean text version of your Markdown
-seoContent = '';
-
 
   constructor(
     private blogService: BlogService, 
@@ -158,10 +155,6 @@ seoContent = '';
         this.isLoading = false;
         this.updateMetaTags(post);
         console.log('Loaded post with metadata:', this.post);
-        this.seoContent = this.post.body
-        .replace(/[#\[\]()`_*\-!>]/g, '')
-        .replace(/\s+/g, ' ')
-        .trim();
       },
       error: (error) => {
         console.error('Error loading post:', error);
