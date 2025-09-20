@@ -4,18 +4,40 @@ export interface BlogPost {
   slug: string;
   thumbnail: string;
   date: string;
-  publishedDate?: string; // ISO date string
   author: string;
+  body: string;
+  
+  // Content metadata (existing fields)
   description?: string;
-  excerpt?: string;      // Short summary for meta descriptions
-  body?: string;         // Full post content in markdown
+  excerpt?: string;
+  image?: string;
+  repo?: string;
+  readTime?: number;
+  updatedAt?: string;
   
-  // SEO & Metadata
-  tags?: string[];       // For article:tag meta tags
-  image?: string;        // URL to featured image for social sharing
+  // Enhanced SEO properties
+  metaDescription?: string;
+  keywords?: string[];
+  canonicalUrl?: string;
   
-  // Optional
-  repo?: string;         // Link to source code
-  readTime?: number;     // Estimated reading time in minutes
-  updatedAt?: string;    // ISO date string for last update
+  // Social media metadata
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogType?: 'article' | 'website';
+  
+  // Twitter card specific
+  twitterCard?: 'summary' | 'summary_large_image';
+  twitterCreator?: string;
+  
+  // Article specific
+  publishedDate?: string; // ISO 8601 format
+  section?: string;      // Main category
+  tags?: string[];
+  
+  // Technical
+  wordCount?: number;
+  
+  // External references
+  relatedPosts?: string[]; // Array of slugs
 }

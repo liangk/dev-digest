@@ -18,11 +18,16 @@
   .post-title { font-size: 2.5rem; font-weight: 800; color: #1a202c; 
     margin: 0 0 1rem; line-height: 1.2; letter-spacing: -0.025em; }
   .post-meta { color: #4a5568; font-size: 0.95rem; margin: 1rem 0 0; 
-    display: flex; justify-content: center; gap: 1rem;
-    .post-date { position: relative; padding-right: 1rem;
-      &::after { content: '•'; position: absolute; right: -0.5rem; 
-        color: #cbd5e0; }}
-    .post-author { font-weight: 500; color: #2d3748; }}
+    display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;
+    .post-date, .post-author, .reading-time, .post-section { 
+      display: flex; align-items: center; }
+    .post-author { font-weight: 500; color: #2d3748; }
+    .reading-time, .post-section { color: #718096; }}
+  .post-tags { display: flex; justify-content: center; gap: 0.5rem; 
+    margin: 1rem 0 0; flex-wrap: wrap;
+    .tag { background: #edf2f7; color: #4a5568; padding: 0.25rem 0.75rem; 
+      border-radius: 1rem; font-size: 0.85rem; font-weight: 500;
+      &:hover { background: #e2e8f0; }}}
   .post-image { margin: 2rem auto 0; width: 100%; padding-bottom: 50%; 
     border-radius: 0.5rem; overflow: hidden; background-size: cover; background-position: center;
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
