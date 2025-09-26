@@ -1,10 +1,24 @@
+---
+title: "Modern Fullstack Authentication Boilerplate: Complete Guide 2025"
+description: "Build secure authentication with Angular, Express, PostgreSQL. Features JWT HTTP-only cookies, refresh token rotation, and TypeScript. Complete starter kit with best practices."
+keywords: "fullstack authentication, Angular Express authentication, JWT HTTP-only cookies, refresh token rotation, TypeScript authentication boilerplate, secure login system, PostgreSQL authentication, Angular Material login"
+date: "2025-09-02"
+author: "Ko-Hsin Liang"
+categories: ["Authentication", "Angular", "Express", "Security", "TypeScript"]
+tags: ["JWT", "HTTP-only cookies", "Prisma", "PostgreSQL", "Angular Material", "refresh tokens"]
+---
+
 # Modern Fullstack Authentication Boilerplate: A Comprehensive Guide  
 **Secure Angular + Express + PostgreSQL Starter with HTTP-only Cookies**
+
+## 🎯 Quick Summary
+**Problem**: Most authentication tutorials store JWTs in localStorage (vulnerable to XSS attacks)  
+**Solution**: This boilerplate uses HTTP-only cookies with refresh token rotation for maximum security  
+**Result**: Production-ready authentication system you can deploy immediately
 
 Authentication is one of the most critical—and often most misunderstood—parts of fullstack development. Get it wrong, and your app is vulnerable to XSS, CSRF, token theft, or session hijacking. Get it right, and you've still spent weeks on boilerplate before writing a single business feature.
 
 That's why I built the **[Fullstack Auth Boilerplate](https://github.com/liangk/fullstack-auth-boilerplate)** — a secure, production-ready starter kit using **Angular**, **Express**, **PostgreSQL**, and **Prisma**, with authentication implemented the right way: **JWT in HTTP-only cookies**, refresh token rotation, and end-to-end TypeScript.
-
 👉 **GitHub Repo**: [https://github.com/liangk/fullstack-auth-boilerplate](https://github.com/liangk/fullstack-auth-boilerplate)
 
 In this **comprehensive guide**, you'll learn:
@@ -16,6 +30,14 @@ In this **comprehensive guide**, you'll learn:
 - How to extend it for your next project
 
 Whether you're building an admin dashboard, internal tool, or SaaS platform, this guide will help you **build faster and safer**.
+
+## 🎯 What You'll Learn
+- ✅ **Security-first authentication** with HTTP-only cookies
+- ✅ **Complete implementation** from database to UI
+- ✅ **Production deployment** checklist and best practices
+- ✅ **Extension strategies** for OAuth, 2FA, and role-based access
+- ✅ **Performance optimization** techniques
+- ✅ **Common troubleshooting** solutions
 
 ---
 
@@ -34,8 +56,12 @@ It includes:
 - ✅ Automatic token refresh
 - ✅ CORS and environment configuration
 - ✅ bcrypt password hashing
+- ✅ Email verification
+- ✅ Secure password reset
+- ✅ Dockerized for easy setup
+- ✅ CI/CD pipelines for quality assurance
 
-No Firebase. No Auth0. No email services. No third-party dependencies for auth.
+No Firebase. No Auth0. No third-party dependencies for auth.
 
 Just pure, secure, and customizable code you fully control.
 
@@ -268,6 +294,70 @@ res.clearCookie('refreshToken');
 
 ---
 
+### 6. **Email Verification**
+
+To ensure users own their email addresses, the boilerplate includes an email verification flow.
+
+**Backend (On Registration)**:
+```ts
+// After user creation
+const verificationToken = signEmailVerificationToken(user.id);
+await sendVerificationEmail(email, verificationToken);
+```
+- A short-lived, secure token is generated.
+- An email is sent to the user with a verification link.
+- Users cannot log in until their email is verified.
+
+**Backend (On Verification)**:
+- The `GET /api/auth/verify-email` endpoint receives the token.
+- The token is validated, and the user's `emailVerified` field is set to `true`.
+
+✅ Prevents fake user sign-ups and ensures a valid communication channel.
+
+---
+
+### 7. **Password Reset**
+
+A secure password reset flow is included for users who forget their password.
+
+**Step 1: Forgot Password**
+- User enters their email and submits to `POST /api/auth/forgot-password`.
+- **Backend**:
+  ```ts
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (user) {
+    const resetToken = signPasswordResetToken(user.id);
+    await sendPasswordResetEmail(email, resetToken);
+  }
+  // Always return a generic success message
+  res.json({ message: 'If an account exists, a reset link has been sent.' });
+  ```
+- This prevents attackers from discovering which emails are registered.
+
+**Step 2: Reset Password**
+- The user clicks the link in the email, which leads to a form on the frontend.
+- The form submits the new password and token to `POST /api/auth/reset-password`.
+- **Backend**:
+  ```ts
+  // Verify the password reset token
+  const payload = verifyPasswordResetToken(token);
+  
+  // Hash the new password
+  const passwordHash = await bcrypt.hash(password, 12);
+
+  // Update password and invalidate all existing sessions
+  await prisma.user.update({
+    where: { id: payload.sub },
+    data: {
+      password: passwordHash,
+      tokenVersion: { increment: 1 }, // Invalidates old refresh tokens
+    },
+  });
+  ```
+✅ Invalidating old sessions on password reset is a critical security step to log out any potentially compromised devices.
+
+---
+
 ## 🛠️ Tech Stack Deep Dive
 
 ### Frontend: Angular + Angular Material
@@ -385,6 +475,74 @@ You can now:
 
 ---
 
+## 🐳 Dockerized Development
+
+For an even faster setup, the boilerplate includes a comprehensive Docker configuration that runs the entire stack—frontend, backend, database, and a local email server—with a single command.
+
+### Quick Start with Docker
+
+Instead of setting up a local PostgreSQL instance and managing environment variables manually, you can use the provided helper script.
+
+**Prerequisites**: Docker and Docker Compose installed.
+
+**Start Everything**:
+```bash
+./docker-dev.sh start
+```
+
+This command will:
+- 🐳 Build the Docker images for the frontend and backend.
+- 🚀 Start all services defined in `docker-compose.yml`.
+- 🔗 Connect the backend to the PostgreSQL database and MailDev email server.
+
+Your full development environment is now running:
+- **Frontend**: `http://localhost:3000`
+- **Backend**: `http://localhost:4000`
+- **MailDev (Email Viewer)**: `http://localhost:1080`
+
+### Docker Helper Script (`docker-dev.sh`)
+
+The `docker-dev.sh` script provides several useful commands for managing your development environment:
+
+| Command | Description |
+|---|---|
+| `./docker-dev.sh start` | Starts all services in the foreground. |
+| `./docker-dev.sh start-bg` | Starts all services in the background (detached mode). |
+| `./docker-dev.sh stop` | Stops all running services. |
+| `./docker-dev.sh logs` | Tails the logs from all running services. |
+| `./docker-dev.sh migrate` | Runs Prisma database migrations inside the backend container. |
+| `./docker-dev.sh clean` | Stops and removes all containers, volumes, and networks. |
+| `./docker-dev.sh shell` | Opens a shell inside the running backend container for debugging. |
+
+This Docker setup is perfect for ensuring a consistent and reproducible development environment for your entire team.
+
+---
+
+## ⚙️ Continuous Integration (CI)
+
+To maintain code quality and prevent bugs, the boilerplate comes with pre-configured CI pipelines for both the frontend and backend using **GitHub Actions**.
+
+These workflows are defined in the `.github/workflows/` directory and automatically run on every `push` and `pull_request` to the `main` and `develop` branches.
+
+### Backend CI (`backend-ci.yml`)
+
+The backend pipeline performs the following checks:
+- **Linting**: Enforces a consistent code style with ESLint.
+- **Formatting**: Checks for code formatting issues with Prettier.
+- **Prisma Validation**: Ensures the Prisma schema is valid.
+- **Unit & Integration Tests**: Runs the full test suite using a dedicated test database.
+- **Code Coverage**: Uploads test coverage reports to Codecov to track test quality over time.
+
+### Frontend CI (`frontend-ci.yml`)
+
+The frontend pipeline ensures the application is always in a buildable state:
+- **Linting**: Checks for code quality issues with ESLint.
+- **Building**: Compiles the Angular application to ensure there are no build errors.
+
+This automated setup catches errors early, enforces best practices, and allows you to ship features with confidence.
+
+---
+
 ## 🛡️ Security Best Practices Implemented
 
 | Practice | Implemented? | Why It Matters |
@@ -415,15 +573,11 @@ model User { ... role Role @default(USER) }
 ```
 - Add middleware: `requireRole('ADMIN')`
 
-### 3. Add Email Verification
-- Send verification link on registration
-- Add `emailVerified` boolean to `User`
-
-### 4. Add 2FA
+### 3. Add 2FA
 - TOTP (Google Authenticator) or SMS
 - Store `twoFactorSecret` in DB
 
-### 5. Add Audit Logs
+### 4. Add Audit Logs
 - Log login attempts, token refreshes, etc.
 
 ---
@@ -465,6 +619,40 @@ Before deploying:
 | Offline Support | Yes | Partial |
 
 Use this boilerplate if you want **control, clarity, and long-term maintainability**.
+
+---
+
+## ❓ Frequently Asked Questions
+
+### Q: Why use HTTP-only cookies instead of localStorage for JWTs?
+**A:** HTTP-only cookies prevent XSS attacks because they're inaccessible to JavaScript. localStorage can be read by any script, making it vulnerable to token theft.
+
+### Q: How does refresh token rotation work?
+**A:** Each time a refresh token is used, it's deleted and replaced with a new one. This prevents replay attacks and limits the impact of token compromise.
+
+### Q: Can I use this with React or Vue instead of Angular?
+**A:** Yes! The backend is framework-agnostic. You'd need to adapt the frontend authentication logic and guards for your chosen framework.
+
+### Q: How does the password reset functionality work?
+**A:** The boilerplate includes a full password reset flow. A user can request a reset link, which is emailed to them. The link contains a secure, short-lived token. When the user sets a new password, all their other active sessions are automatically logged out for security.
+
+### Q: How do I add role-based access control?
+**A:** Add a `role` field to the User model and create middleware to check user roles before accessing protected routes.
+
+### Q: Is this production-ready?
+**A:** Yes, with proper environment configuration and HTTPS. Follow the production checklist for deployment best practices.
+
+### Q: How do I handle multiple devices/sessions?
+**A:** The current implementation allows multiple sessions. To limit this, store session IDs and implement device management.
+
+### Q: What's the difference between access and refresh tokens?
+**A:** Access tokens are short-lived (15 minutes) for API requests. Refresh tokens are long-lived (7 days) for generating new access tokens.
+
+### Q: How do I add OAuth (Google, GitHub) login?
+**A:** Use Passport.js strategies or @auth/core. Add provider fields to the User model and handle OAuth callbacks.
+
+### Q: Can I deploy this on free hosting?
+**A:** Yes! The frontend can be deployed to Netlify/Vercel, and the backend to Railway/Render. Use cloud databases like Neon or Supabase.
 
 ---
 
