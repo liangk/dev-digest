@@ -2,15 +2,14 @@
   <div class="title2">Building Tomorrow, One Stack at a Time</div>
   <div class="post_list" style="display:none;visibility:hidden">
     @for (post of posts; track post.slug) {
-      
-      <a class="post" routerLink="/blog/{{ post.slug }}">
+      <div class="post" [routerLink]="['/blog', post.slug]" (click)="$event.preventDefault(); navigateToPost(post.slug)">
         <div class="thumbnail"><img src="/images/{{ post.thumbnail }}" alt="{{ post.title }}"></div>
         <div class="content">
           <div class="post_title">{{ post.title }}</div>
           <div class="post_description">{{ post.description }}</div>
           @if (post.repo) {
             <div class="post_repo">
-              <a [href]="post.repo" (click)="gotoRepo($event, post.repo)">GitHub Repo</a>
+              <a [href]="post.repo" (click)="$event.stopPropagation(); gotoRepo($event, post.repo)">GitHub Repo</a>
             </div>
           }
           <div class="post_author">{{ post.date }} <i>by {{ post.author }}</i></div>
