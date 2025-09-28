@@ -1,6 +1,6 @@
 <div class="home_content">
   <div class="title2">Building Tomorrow, One Stack at a Time</div>
-  <div class="post_list">
+  <div class="post_list" style="display:none;visibility:hidden">
     @for (post of posts; track post.slug) {
       <div class="post" [routerLink]="['/blog', post.slug]" (click)="$event.preventDefault(); navigateToPost(post.slug)">
         <div class="thumbnail"><img src="/images/{{ post.thumbnail }}" alt="{{ post.title }}"></div>
@@ -14,7 +14,10 @@
           }
           <div class="post_author">{{ post.date }} <i>by {{ post.author }}</i></div>
         </div>
-      </div>
+      </a>
     }
   </div>
+  <div  class="post_list">
+    <a routerLink="/blog/fullstack-authentication-boilerplate" class="post" tabindex="0"><div  class="thumbnail"><img  src="/images/fullstack-authentication-boilerplate.png" alt="Fullstack Authentication Boilerplate"></div><div  class="content"><div  class="post_title">Fullstack Authentication Boilerplate</div><div  class="post_description">This document outlines a full-stack authentication boilerplate project available on GitHub, designed to provide a robust starting point for web application development. It details a modern tech stack, including Node.js, Express, Prisma (with PostgreSQL), and JWT for the backend, alongside Angular (with Material UI) for the frontend.</div><div  class="post_repo"><a  href="https://github.com/liangk/fullstack-auth-boilerplate">GitHub Repo</a></div><!--container--><div  class="post_author">2025-09-02 <i >by Ko-Hsin Liang</i></div></div></a>
+    <a routerLink="/blog/crypto-tracker-article-s1" class="post" tabindex="0"><div  class="thumbnail"><img  src="/images/crypto-tracker-article-s1.jpg" alt="How I Built a Free Crypto Tracker in 2025 (Complete Guide)"></div><div  class="content"><div  class="post_title">How I Built a Free Crypto Tracker in 2025 (Complete Guide)</div><div  class="post_description">A comprehensive guide on building a real-time cryptocurrency dashboard that tracks prices, displays charts, and provides market insights. The solution is built with modern web technologies and hosted completely free, handling hundreds of daily visitors.</div><div  class="post_repo"><a  href="https://github.com/liangk/crypto-tracker">GitHub Repo</a></div><!--container--><div  class="post_author">2025-09-16 <i >by Ko-Hsin Liang</i></div></div></a>
 </div>
